@@ -1,28 +1,177 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nowoczesny Kalkulator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f4f7f6;
+            display: flex; /* Używamy Flexbox */
+            justify-content: center; /* Wyśrodkowanie w poziomie */
+            align-items: center; /* Wyśrodkowanie w pionie */
+            min-height: 100vh; /* Pełna wysokość ekranu */
+            margin: 0;
+        }
+        .kalkulator {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 24px;
+            width: 320px;
+            box-sizing: border-box; /* Zapewnia, że padding nie psuje szerokości */
+        }
+        .kalkulator h2 {
+            text-align: center;
+            margin-top: 0;
+            color: #333;
+        }
+        .pola-input {
+            display: flex;
+            gap: 10px; /* Odstęp między polami */
+            margin-bottom: 15px;
+        }
+        .kalkulator input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        /* Ukrywa strzałki w polach numerycznych dla lepszego wyglądu */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        
+        .przyciski {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 kolumny o równej szerokości */
+            gap: 10px;
+        }
+        .kalkulator button {
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        .kalkulator button:hover {
+            background: #0056b3;
+        }
+        .kalkulator button:active {
+             transform: scale(0.98); /* Efekt wciśnięcia */
+        }
+        /* Inne kolory dla operacji */
+        .kalkulator button.operator {
+            background: #f0f0f0;
+            color: #333;
+        }
+         .kalkulator button.operator:hover {
+            background: #e0e0e0;
+        }
+
+
+        #wynik {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 22px;
+            text-align: center;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+            min-height: 1.5em; /* Stała wysokość, by nie "skakał" */
+            color: #2a2a2a;
+            word-wrap: break-word; /* Złamanie tekstu, gdyby błąd był długi */
+        }
+        /* Specjalna klasa dla błędów */
+        #wynik.blad {
+            color: #dc3545;
+            background: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+
+<div class="kalkulator">
+    <h2>Kalkulator</h2>
+    <div class="pola-input">
+        <input type="number" id="liczba1" placeholder="Liczba 1">
+        <input type="number" id="liczba2" placeholder="Liczba 2">
+    </div>
+    <div class="przyciski">
+        <button onclick="oblicz('dodaj')" class="operator">+</button>
+        <button onclick="oblicz('odejmij')" class="operator">-</button>
+        <button onclick="oblicz('mnoz')" class="operator">×</button>
+        <button onclick="oblicz('dziel')" class="operator">÷</button>
+    </div>
+    <div id="wynik">Wynik pojawi się tutaj</div>
+</div>
 
 <script>
-    function dodaj() {
-        let a = parseFloat(document.getElementById("liczba1").value);
-        let b = parseFloat(document.getElementById("liczba2").value);
-        document.getElementById("wynik").textContent = "Wynik: " + (a + b);
-    }
-    function odejmij() {
-        let a = parseFloat(document.getElementById("liczba1").value);
-        let b = parseFloat(document.getElementById("liczba2").value);
-        document.getElementById("wynik").textContent = "Wynik: " + (a - b);
-    }
-    function mnoz() {
-        let a = parseFloat(document.getElementById("liczba1").value);
-        let b = parseFloat(document.getElementById("liczba2").value);
-        document.getElementById("wynik").textContent = "Wynik: " + (a * b);
-    }
-    function dziel() {
-        let a = parseFloat(document.getElementById("liczba1").value);
-        let b = parseFloat(document.getElementById("liczba2").value);
-        if (b === 0) {
-            document.getElementById("wynik").textContent = "Błąd: Nie można dzielić przez zero";
-        } else {
-            document.getElementById("wynik").textContent = "Wynik: " + (a / b);
+    function oblicz(operacja) {
+        // 1. Pobieranie elementów
+        const input1 = document.getElementById("liczba1");
+        const input2 = document.getElementById("liczba2");
+        const wynikDiv = document.getElementById("wynik");
+
+        // 2. Parsowanie wartości (zamiana tekstu na liczby)
+        const a = parseFloat(input1.value);
+        const b = parseFloat(input2.value);
+
+        // 3. Czyszczenie starych błędów
+        wynikDiv.classList.remove("blad");
+        
+        // 4. Walidacja (sprawdzenie, czy pola nie są puste)
+        if (isNaN(a) || isNaN(b)) {
+            wynikDiv.textContent = "Wprowadź obie liczby!";
+            wynikDiv.classList.add("blad");
+            return; // Przerwanie funkcji
         }
+
+        // 5. Obliczenia
+        let wynik;
+        switch (operacja) {
+            case 'dodaj':
+                wynik = a + b;
+                break;
+            case 'odejmij':
+                wynik = a - b;
+                break;
+            case 'mnoz':
+                wynik = a * b;
+                break;
+            case 'dziel':
+                if (b === 0) {
+                    wynikDiv.textContent = "Błąd: Nie można dzielić przez 0";
+                    wynikDiv.classList.add("blad");
+                    return; // Przerwanie funkcji
+                }
+                wynik = a / b;
+                break;
+            default:
+                wynikDiv.textContent = "Nieznana operacja";
+                wynikDiv.classList.add("blad");
+                return; // Przerwanie funkcji
+        }
+
+        // 6. Wyświetlanie wyniku
+        // Używamy parseFloat(wynik.toFixed(10)), aby uniknąć błędów
+        // zaokrągleń JavaScript (np. 0.1 + 0.2 = 0.30000000000000004)
+        // i jednocześnie usunąć niepotrzebne zera na końcu.
+        wynikDiv.textContent = "Wynik: " + parseFloat(wynik.toFixed(10));
     }
 </script>
 
+</body>
+</html>

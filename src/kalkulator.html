@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Kalkulator</title>
-    <style>
-        body { font-family: Arial; background: #f0f0f0; }
-        .kalkulator { margin: 50px auto; padding: 20px; background: #fff; width: 300px; border-radius: 8px; box-shadow: 0 0 10px #aaa; }
-        .kalkulator input { width: 80px; margin: 5px; }
-        .kalkulator button { margin: 5px; }
-        #wynik { margin-top: 10px; font-weight: bold; }
-    </style>
-</head>
-<body>
-<div class="kalkulator">
-    <input type="number" id="liczba1" placeholder="Liczba 1">
-    <input type="number" id="liczba2" placeholder="Liczba 2"><br>
-    <button onclick="dodaj()">Dodaj</button>
-    <button onclick="odejmij()">Odejmij</button>
-    <button onclick="mnoz()">Mnoż</button>
-    <button onclick="dziel()">Dziel</button>
-    <div id="wynik"></div>
-</div>
+
 <script>
     function dodaj() {
         let a = parseFloat(document.getElementById("liczba1").value);
@@ -47,5 +25,4 @@
         }
     }
 </script>
-</body>
-</html>
+

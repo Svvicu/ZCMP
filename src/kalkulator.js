@@ -27,3 +27,4 @@ function oblicz(a, b, operacja) {
 
   return { wynik: parseFloat(wynik.toFixed(10)), blad: false };
 }
+module.exports = { oblicz };

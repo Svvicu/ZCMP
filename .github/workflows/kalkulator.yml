@@ -1,0 +1,28 @@
+name: Testy kalkulatora JS
+
+on:
+  push:
+    branches: [ develop-Front, develop-back ]
+  pull_request:
+    branches: [ develop-Front, develop-back ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout kodu
+      uses: actions/checkout@v3
+
+    - name: Instalacja Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Inicjalizacja projektu i instalacja Jest
+      run: |
+        npm init -y
+        npm install --save-dev jest
+
+    - name: Uruchomienie testów
+      run: npx jest kalkulator.test.js

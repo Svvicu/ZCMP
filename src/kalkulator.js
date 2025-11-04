@@ -15,3 +15,4 @@ export function dziel(a, b) {
   if (b === 0) return "Błąd: Nie można dzielić przez zero";
   return a / b;
 }
+module.exports = { oblicz };

@@ -2,9 +2,9 @@ name: Testy kalkulatora JS
 
 on:
   push:
-    branches: [ develop-Front, develop-back ]
+    branches: [ develop-back ]
   pull_request:
-    branches: [ develop-Front, develop-back ]
+    branches: [ develop-back ]
 
 jobs:
   test:
@@ -25,4 +25,4 @@ jobs:
         npm install --save-dev jest
 
     - name: Uruchomienie testów
-      run: npx jest kalkulator.test.js
+      run: npx jest kalkulator.html

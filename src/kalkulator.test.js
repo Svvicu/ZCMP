@@ -1,4 +1,4 @@
-const { dodaj, odejmij, mnoz, dziel } = require('./kalkulator.js');
+const { dodaj, odejmij, mnoz, dziel } = require('./kalkulator.html');
 
 test('dodaj 2 + 3 = 5', () => {
   expect(dodaj(2, 3)).toBe(5);

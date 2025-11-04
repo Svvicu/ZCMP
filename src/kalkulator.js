@@ -1,4 +1,4 @@
-export function dodaj(a, b) {
+function dodaj(a, b) {
   return isNaN(a) || isNaN(b) ? "Błąd danych" : a + b;
 }
 

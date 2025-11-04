@@ -25,4 +25,4 @@ jobs:
         npm install --save-dev jest
 
     - name: Uruchomienie testów
-      run: npx jest kalkulator.html
+      run: npx jest kalkulator.test.js

@@ -2,6 +2,7 @@ export function oblicz(a, b, operacja) {
   if (isNaN(a) || isNaN(b)) {
     return { wynik: "Wprowadź obie liczby!", blad: true };
   }
+ //comment 
 
   let wynik;
   switch (operacja) {

@@ -1,4 +1,4 @@
-import { oblicz } from './kalkulator.js';
+const { oblicz } = require('./kalkulator.js');
 
 test('dodawanie 2 + 3 = 5', () => {
   expect(oblicz(2, 3, 'dodaj')).toEqual({ wynik: 5, blad: false });

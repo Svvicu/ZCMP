@@ -2,9 +2,9 @@ name: Testy kalkulatora JS
 
 on:
   push:
-    branches: [ develop-Front, develop-back ]
+    branches: [ main, develop-Front, develop-back ]
   pull_request:
-    branches: [ develop-Front, develop-back ]
+    branches: [ main, develop-Front, develop-back ]
 
 jobs:
   test:
